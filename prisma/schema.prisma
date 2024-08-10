@@ -15,4 +15,7 @@ model product {
   imageUrl     String?  @db.VarChar(45)
   createAt     DateTime @default(now())
   updateAt     DateTime @updatedAt
+
+
+  @@map("products")
 }
