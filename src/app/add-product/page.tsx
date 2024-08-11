@@ -16,15 +16,20 @@ const imageUrl=formData.get('imageUrl')?.toString()
 const price=Number(formData.get('price')?.toString()||0)
 if(!name || !price || !imageUrl || !descriptions)
   throw Error("Missing required field")
+const data={
+  name,
+  descriptions,
+  imageUrl,
+  price
+}
 const res=await prisma.product.create({
-  data:{
-    name,
-    descriptions,
-    imageUrl,
-    price
-  }
+  data
 })
 // console.log("res",res)
+
+Object.keys(data).forEach((key) => {
+  formData.set(key, "");
+});
 redirect("/")
 }
 
@@ -57,8 +62,8 @@ export default function AddProductPage() {
       type="number" 
       placeholder="price" 
       className="input input-bordered w-full mb-3 " />
-      <FormSubmitButtont className="btn btn-primary btn-block" type="submit">
-        K
+      <FormSubmitButtont className="btn-block" type="submit">
+        Add Product
       </FormSubmitButtont>
       {/* <button className="btn btn-primary btn-block" type="submit">Add Product</button> */}
       </form>
