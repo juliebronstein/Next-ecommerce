@@ -12,7 +12,7 @@ model product {
   name         String?  @db.VarChar(45)
   price        Int?
   descriptions String?  @db.VarChar(45)
-  imageUrl     String?  @db.VarChar(45)
+  imageUrl     String?  @db.VarChar(255)
   createAt     DateTime @default(now())
   updateAt     DateTime @updatedAt
 
