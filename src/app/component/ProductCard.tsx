@@ -3,6 +3,7 @@ import { product } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import PriceTag from "./PriceTag";
+import AddToCartButton from "../products/[productsId]/AddToCartButton";
 
 interface ProductCardProbs {
   product: product;
@@ -34,7 +35,7 @@ const ProductCard = ({ product }: ProductCardProbs) => {
         <p>{product.descriptions}</p>
         <div className="card-actions justify-between place-items-baseline">
           <PriceTag className="card-title" price={product?.price || 0} />
-          <button className="btn btn-primary">Buy Now</button>
+          <AddToCartButton productId={product.idproduct} />
         </div>
       </div>
     </Link>

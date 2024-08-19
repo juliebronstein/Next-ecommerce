@@ -25,7 +25,6 @@ const addProduct = async (formData: FormData) => {
   const res = await prisma.product.create({
     data,
   });
-  // console.log("res",res)
 
   Object.keys(data).forEach((key) => {
     formData.set(key, "");

@@ -17,8 +17,8 @@ model product {
   updateAt     DateTime @updatedAt
 
 
-  // رابطه یک به چند با CardItem
-  CardItems    CartItem[]  // ارتباط به CardItem
+ 
+  CardItems    CartItem[]  
 
   @@map("products")
 }
