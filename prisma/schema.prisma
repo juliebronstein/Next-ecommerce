@@ -17,18 +17,28 @@ model product {
   updateAt     DateTime @updatedAt
 
 
+  // رابطه یک به چند با CardItem
+  CardItems    CartItem[]  // ارتباط به CardItem
+
   @@map("products")
 }
 
-model Card {
-  idcard    Int      @id @default(autoincrement())
+model Cart {
+  id    Int     @id @default(autoincrement()) @map("_id")
+  items    CartItem[] 
   createAt     DateTime @default(now())
   updateAt     DateTime @updatedAt
-
-
-  @@map("Card")
+  
+  @@map("carts")
 }
-model CardItem{
-  idcarditem:Int @id @default()
-  @@map("CardItem")
+
+model CartItem {
+  id Int @id @default(autoincrement()) @map("_id")
+  productid  Int 
+  quantity Int
+  cartId Int
+
+  product    product @relation(fields: [productid], references: [idproduct],onDelete: Cascade)
+  Card    Cart @relation(fields: [cartId],references: [id])
+  @@map("cartitems")
 }
