@@ -19,3 +19,16 @@ model product {
 
   @@map("products")
 }
+
+model Card {
+  idcard    Int      @id @default(autoincrement())
+  createAt     DateTime @default(now())
+  updateAt     DateTime @updatedAt
+
+
+  @@map("Card")
+}
+model CardItem{
+  idcarditem:Int @id @default()
+  @@map("CardItem")
+}
