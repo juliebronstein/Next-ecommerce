@@ -15,9 +15,7 @@ model product {
   imageUrl     String?  @db.VarChar(255)
   createAt     DateTime @default(now())
   updateAt     DateTime @updatedAt
-
-
- 
+  
   CardItems    CartItem[]  
 
   @@map("products")
