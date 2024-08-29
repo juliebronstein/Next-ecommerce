@@ -3,6 +3,8 @@ import prisma from "@/lib/db/prisma";
 import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import AddToCartButton from "./AddToCartButton";
+import incrementProductQuantity from "./actions";
 
 interface ProductPageProbs {
   params: {
@@ -55,7 +57,9 @@ const ProductPage = async ({ params: { productsId } }: ProductPageProbs) => {
         <p className="py-6">{product.descriptions}</p>
         <PriceTag className="my-4" price={product?.price || 0} />
         <div className="mt-5">
-          <button className="btn btn-primary">Buy Now</button>
+          {/* <button className="btn btn-primary">Buy Now</button> */}
+          <AddToCartButton productId={product.idproduct} incrementProductQuantity={incrementProductQuantity} />
+          
         </div>
       </div>
     </div>

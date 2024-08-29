@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import PriceTag from "./PriceTag";
 import AddToCartButton from "../products/[productsId]/AddToCartButton";
+import incrementProductQuantity from "../products/[productsId]/actions";
 
 interface ProductCardProbs {
   product: product;
@@ -14,6 +15,7 @@ const ProductCard = ({ product }: ProductCardProbs) => {
   return (
     <Link
       href={`/products/${product.idproduct}`}
+      // href={`/${product.idproduct}`}
       className="card bg-base-100 w-full hover:shadow-xl transition-shadow mb-10"
     >
       <figure>
@@ -35,7 +37,7 @@ const ProductCard = ({ product }: ProductCardProbs) => {
         <p>{product.descriptions}</p>
         <div className="card-actions justify-between place-items-baseline">
           <PriceTag className="card-title" price={product?.price || 0} />
-          <AddToCartButton productId={product.idproduct} />
+          <AddToCartButton productId={product.idproduct} incrementProductQuantity={incrementProductQuantity} />
         </div>
       </div>
     </Link>

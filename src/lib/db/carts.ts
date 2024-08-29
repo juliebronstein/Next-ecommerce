@@ -8,12 +8,10 @@ export type cartWithProduct=Prisma.CartGetPayload<{
     include:{items:{include:{product:true}}} 
 }>
 
-
 export type shoppingCart= cartWithProduct &{
     size:number,
     subtotals:number
 }
-
 
 export async function getCart(): Promise<shoppingCart|null> {
  const localCartId=cookies().get("localCartId")?.value
@@ -42,18 +40,17 @@ return {
   };
   
 }
-const createCarts=async()=>{
+const createCarts=async():Promise<shoppingCart> =>{
   
     const newCart=await prisma.cart.create({
-        data:{
-            items:{
-                create:[
-                    {productid:1,quantity:5},
-                    {productid:1,quantity:5},
-                ]
-            }
-        }
+        data: {},
     })
  cookies().set("localCartid",newCart.id.toString())
+ return{
+    ...newCart,
+    items:[],
+    size:0,
+    subtotals:0
+ }
 }
 export default createCarts
