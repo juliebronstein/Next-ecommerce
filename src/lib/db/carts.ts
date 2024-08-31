@@ -14,7 +14,7 @@ export type shoppingCart= cartWithProduct &{
 }
 
 export async function getCart(): Promise<shoppingCart|null> {
- const localCartId=cookies().get("localCartid")?.value
+ const localCartId=cookies().get("localCartId")?.value
  const id0=Number(localCartId)
 const cart=localCartId ?  
     await prisma.cart.findUnique({where:{id:id0},
@@ -39,12 +39,19 @@ return {
   };
   
 }
+
 const createCarts=async():Promise<shoppingCart> =>{
-  
+
+
+   
     const newCart=await prisma.cart.create({
         data: {},
     })
- cookies().set("localCartid",newCart.id.toString())
+ cookies().set("localCartId",newCart.id.toString(), {
+    path: "/",
+    maxAge: 3600*24*30, // Expires after 1hr
+    sameSite: true,
+  })
  return{
     ...newCart,
     items:[],
