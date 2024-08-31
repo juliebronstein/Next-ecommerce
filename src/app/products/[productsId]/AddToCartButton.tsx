@@ -15,9 +15,10 @@ const AddToCartButton=({productId,incrementProductQuantity}:AddToCartButtonProbs
                 setSucces(false)
                 startTransition(async()=>{
                 await incrementProductQuantity(productId)
-                setSucces(true)
+                setSucces((old)=>{ return! old})
                 })
-            }} className="btn btn-primary">ADD TO CART <SlBasket/>
+            }   
+            } className="btn btn-primary">ADD TO CART <SlBasket/>
             {/* <svg xmlns="http://www.w3.org/2000/svg" 
             viewBox="0 0 576 512"
             width="20"
@@ -30,7 +31,8 @@ const AddToCartButton=({productId,incrementProductQuantity}:AddToCartButtonProbs
                8.8-7.2 16-16 16s-16-7.2-16-16l0-96c0-8.8 7.2-16 16-16s16 7.2 16 16z"/></svg> */}
             </button>
             {isPending && <span className="loading loading-ring loading-md"/>}
-            {!isPending && succes && <span className="text-success">Added to Cart</span> }
+
+            {(!isPending && succes) && <span className="text-success">Added to Cart</span> }
         </div>
     )
 

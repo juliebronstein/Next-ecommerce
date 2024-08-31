@@ -8,11 +8,9 @@ import { revalidatePath } from "next/cache"
 
 
 const incrementProductQuantity=async(productId:number)=>{
-    // const id=Number(productId)||0
+    const id_=Number(productId)||0
     const cart= await getCart() ?? await createCarts()
-    console.log("cart:",cart)
-    const articleInCart=cart.items.find(item=>item.productid===productId)
-    console.log("articleInCart:",articleInCart)
+    const articleInCart=cart.items.find(item=>item.productid===id_)
     if(articleInCart){
         await prisma.cartItem.update({
             where:{id:articleInCart.id},
@@ -32,4 +30,3 @@ revalidatePath("/products/[productId]")
 }
 export default incrementProductQuantity
 
-   

@@ -14,9 +14,8 @@ export type shoppingCart= cartWithProduct &{
 }
 
 export async function getCart(): Promise<shoppingCart|null> {
- const localCartId=cookies().get("localCartId")?.value
-const id0=Number(localCartId)
-
+ const localCartId=cookies().get("localCartid")?.value
+ const id0=Number(localCartId)
 const cart=localCartId ?  
     await prisma.cart.findUnique({where:{id:id0},
         include:{items:{include:{product:true}}} })
