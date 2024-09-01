@@ -19,7 +19,7 @@ const CartEntity=({cartItem:{product,quantity}}:CartEntityProbs)=>{
     const [isPending,startTransition]=useTransition()
     const[succes,setSucces]=useState(false)
     const quantityOptions:JSX.Element[]=[]
-    for(let i=0;i<100;i++){
+    for(let i=1;i<100;i++){
         quantityOptions.push(
       <option value={i} key={i}>
             {i}
@@ -56,11 +56,11 @@ const CartEntity=({cartItem:{product,quantity}}:CartEntityProbs)=>{
                     setSucces(true)
                    })
                 }} 
-                >
+                ><option value={0}> 0 (Remove)</option>
                     {quantityOptions}
                 </select>
-                {isPending && <span className="loading loading-spinner loading-sm"></span>}
-                {succes && !isPending && <span>change</span>}
+                {isPending ? <span className="loading loading-spinner loading-sm"></span>:
+                 !isPending && succes && <div className="text-success">changed</div>}
             </div>
             <div className="">Total:{fromatPrice(quantity * (product.price||0))} </div>
             

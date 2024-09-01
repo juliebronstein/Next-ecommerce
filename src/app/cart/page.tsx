@@ -13,7 +13,7 @@ const CartPage=async()=>{
                     <CartEntity setProductQuantity={setProductQuantity} cartItem={p} key={p.id}/>
                 ))
                 }
-                {!cart?.items && <p className="text-warning">Your cart is empty</p>}
+                {!cart?.items.length && <p className="">Your cart is empty</p>}
                 <div className="flex flex-col items-end sm:items-center">
                     <p className="mb-3 font-bold">
                         Total:{fromatPrice(cart?.subtotals||0)}
