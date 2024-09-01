@@ -6,7 +6,6 @@ import ShoppingCartButton from "./ShoppingCartButton";
 import { getCart } from "@/lib/db/carts";
 
 
-
     const searchProduct=async(formData:FormData)=>{
         "use server"
         const search=formData.get("serachQuery")?.toString()
@@ -18,7 +17,7 @@ import { getCart } from "@/lib/db/carts";
 const NavBar=async()=>{
     const cart=await getCart()
     return(
-        <div className="bg-slate-100 ">
+        <div className="bg-slate-100 mb-5">
             <div className="navbar m-auto max-w-7xl flex-col gap-2 sm:flex-row">
                 <div className="flex-1">
                 <Link className="btn btn-ghost text-lg" href="/">
@@ -29,7 +28,6 @@ const NavBar=async()=>{
                 height={80}
                 placeholder="blur"
                 blurDataURL="/assets/images/loader.svg"
-                loading="lazy"
                 quality={50}
                 />
                 WEBSTORE

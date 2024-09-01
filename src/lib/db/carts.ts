@@ -8,6 +8,9 @@ export type cartWithProduct=Prisma.CartGetPayload<{
     include:{items:{include:{product:true}}} 
 }>
 
+export type cartItemWithProduct=Prisma.CartItemGetPayload<{
+    include:{product:true} 
+}>
 export type shoppingCart= cartWithProduct &{
     size:number,
     subtotals:number

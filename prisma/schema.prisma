@@ -33,10 +33,9 @@ model Cart {
 model CartItem {
   id Int @id @default(autoincrement()) @map("_id")
   productid  Int 
-  quantity Int
-  cartId Int
-
+  quantity   Int
+  cartId     Int
   product    product @relation(fields: [productid], references: [idproduct],onDelete: Cascade)
-  Card    Cart @relation(fields: [cartId],references: [id])
+  Card       Cart @relation(fields: [cartId],references: [id])
   @@map("cartitems")
 }

@@ -7,9 +7,8 @@ export default async  function Home() {
   const products=await prisma.product.findMany({
     orderBy:{idproduct:'desc'}
   })
-  // cons  ole.log(products)
   return (
-    // <div>Hi</div>
+
     <div>
       <div className="hero rounded-xl bg-base-200" >
         <div className="hero-content flex-col lg:flex-row">
@@ -23,7 +22,7 @@ export default async  function Home() {
            loading="lazy"  
            className="w-full max-w-sm rounded-lg shadow-2xl" 
            quality={100}
-          //  priority
+
           />
           <div>
             <h1 className="text-5xl font-bold">{products[0].name}</h1>

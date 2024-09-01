@@ -9,6 +9,13 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "OnlineShop",
   description: "We make your wallet cry",
+  icons: {
+    icon: {
+      url:"@/assets/logo.ico",
+     
+    },
+    shortcut: { url: "@/assets/logo.ico"},
+  },
 };
 
 export default function RootLayout({
