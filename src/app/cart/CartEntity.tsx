@@ -32,8 +32,8 @@ const CartEntity=({cartItem:{product,quantity}}:CartEntityProbs)=>{
             <Image 
            src={product.imageUrl||""} 
            alt={product.name || ""}
-           width={400} 
-           height={400} 
+           width={150} 
+           height={150} 
            placeholder="blur" 
            blurDataURL="/assets/images/loader.svg" 
            loading="lazy"  
