@@ -9,13 +9,14 @@ const CartPage=async()=>{
         <div className="flex flex-col sm:flex-row justify-between  ">
            <div className="flex flex-col sm:w-3/4 ">
             <h1 className="mb-6 text-3xl font-bold">Shopping Cart</h1>
+            {!cart?.items.length && <p className="flex flex-col">Your cart is empty</p>}
                 {cart?.items.map(p=>(
                     <CartEntity setProductQuantity={setProductQuantity} cartItem={p} key={p.id}/>
                 ))
                 }
                 </div>
-                {!cart?.items.length && <p className="flex flex-col">Your cart is empty</p>}
-                <div className="flex flex-col items-center justify-center sm:items-start sm:justify-start p-5 bg-white rounded-lg border sticky top-8 h-[200px]">
+                <div className="flex flex-col items-center justify-center sm:items-start 
+                sm:justify-start p-5 bg-white rounded-lg border sticky top-8 ">
                     <p className="mb-3 font-bold">
                         Total:{fromatPrice(cart?.subtotals||0)}
                     </p>

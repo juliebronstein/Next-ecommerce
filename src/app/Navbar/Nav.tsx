@@ -4,6 +4,9 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import ShoppingCartButton from "./ShoppingCartButton";
 import { getCart } from "@/lib/db/carts";
+import UserMenuButton from "./UserMenuButtons";
+import  {getServerSession}  from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
 
     const searchProduct=async(formData:FormData)=>{
@@ -16,6 +19,8 @@ import { getCart } from "@/lib/db/carts";
     }   
 const NavBar=async()=>{
     const cart=await getCart()
+    const session=await getServerSession(authOptions)
+    // console.log(session)
     return(
         <div className="bg-slate-100 mb-5">
             <div className="navbar m-auto max-w-7xl flex-col gap-2 sm:flex-row">
@@ -47,6 +52,7 @@ const NavBar=async()=>{
                         </div>
                     </form>
                     <ShoppingCartButton cart={cart} />
+                    <UserMenuButton session={session} />
                 </div>
             </div>
         </div>
