@@ -1,6 +1,9 @@
 import { cookies } from "next/headers"
 import prisma from "./prisma"
-import { Prisma } from "@prisma/client"
+import { Cart, Prisma } from "@prisma/client"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import getUser from "./user"
 
 
 
@@ -44,12 +47,21 @@ return {
 }
 
 const createCarts=async():Promise<shoppingCart> =>{
-
-
-   
-    const newCart=await prisma.cart.create({
-        data: {},
+    let newCart:Cart;
+    const session=await getServerSession(authOptions)
+    let user= await getUser({session})
+    console.log(user)
+if(session){
+ newCart=await prisma.cart.create({
+     data: {
+            userId:user?.id
+        },
     })
+}else{
+    newCart=await prisma.cart.create({
+        data
+    })
+}
  cookies().set("localCartId",newCart.id.toString(), {
     path: "/",
     maxAge: 3600*24*30, // Expires after 1hr
