@@ -20,12 +20,23 @@ export type shoppingCart= cartWithProduct &{
 }
 
 export async function getCart(): Promise<shoppingCart|null> {
- const localCartId=cookies().get("localCartId")?.value
- const id0=Number(localCartId)
-const cart=localCartId ?  
-    await prisma.cart.findUnique({where:{id:id0},
-        include:{items:{include:{product:true}}} })
-    :null
+    const session=await getServerSession(authOptions)
+    let cart:cartWithProduct | null
+    const user=await getUser({session})
+    if(session){
+        cart=await prisma.cart.findFirst({
+            where:{userId:user?.id},
+            include:{items:{include:{product:true}}}
+        })
+    }else{
+        const localCartId=cookies().get("localCartId")?.value
+        const id0=Number(localCartId)
+        cart=localCartId ?  
+           await prisma.cart.findUnique({where:{id:id0},
+               include:{items:{include:{product:true}}} })
+           :null
+    }
+
 if(!cart) return null
 
 // return {
@@ -47,24 +58,26 @@ return {
 }
 
 const createCarts=async():Promise<shoppingCart> =>{
-    let newCart:Cart;
     const session=await getServerSession(authOptions)
-    let user= await getUser({session})
-    console.log(user)
-if(session){
- newCart=await prisma.cart.create({
-     data: {
-            userId:user?.id
-        },
-    })
-}else{
-    newCart=await prisma.cart.create({
-        data
-    })
-}
+    let newCart:Cart | null
+    const user=await getUser({session})
+    if(session){
+        newCart=await prisma.cart.create({
+            data: {
+                userId:user?.id
+            },
+        })
+    }else{
+        newCart=await prisma.cart.create({
+            data: {},
+        })
+    }
+   
+
+
  cookies().set("localCartId",newCart.id.toString(), {
     path: "/",
-    maxAge: 3600*24*30, // Expires after 1hr
+    maxAge: 3600*24*30, // Expires after 1mounth
     sameSite: true,
   })
  return{

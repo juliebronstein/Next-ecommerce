@@ -16,6 +16,7 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   secret: process.env.JWT_SECRET,
+  debug: true,
 };
 
 const handler = NextAuth(authOptions);

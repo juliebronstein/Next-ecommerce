@@ -12,7 +12,6 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
     const searchProduct=async(formData:FormData)=>{
         "use server"
         const search=formData.get("serachQuery")?.toString()
-        console.log(search)
         if(search){
             redirect("/search?query?="+search)
         }
