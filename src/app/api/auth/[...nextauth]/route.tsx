@@ -1,4 +1,5 @@
 
+import { megrgeAnonymousCartIntoUserCart } from "@/lib/db/carts";
 import { env } from "@/lib/db/env";
 import prisma from "@/lib/db/prisma";
 import { PrismaAdapter } from "@auth/prisma-adapter";
@@ -15,8 +16,18 @@ export const authOptions: NextAuthOptions = {
       clientSecret: env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+  events:{
+    async signIn(){
+      await megrgeAnonymousCartIntoUserCart()
+    }
+  },
+  // callbacks:{
+  //   session({session,user}){
+  //     session.user.id=user.id;
+  //     return session
+  //   }
+  // },
   secret: process.env.JWT_SECRET,
-  debug: true,
 };
 
 const handler = NextAuth(authOptions);
