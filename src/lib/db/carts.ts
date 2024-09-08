@@ -1,9 +1,12 @@
 import { cookies } from "next/headers"
 import prisma from "./prisma"
 import { Cart, CartItem, Prisma } from "@prisma/client"
-import { getServerSession } from "next-auth"
+import { getServerSession, Session } from "next-auth"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import getUser from "./user"
+
+
+
 
 export type cartWithProduct=Prisma.CartGetPayload<{
     include:{items:{include:{product:true}}} 
@@ -20,7 +23,7 @@ export type shoppingCart= cartWithProduct &{
 export async function getCart(): Promise<shoppingCart|null> {
     const session=await getServerSession(authOptions)
     let cart:cartWithProduct | null
-    const user=await getUser({session})
+    const user=await getUser(session?.user.name ||"",session?.user.email||"")
     const UserId_=user?.id
     if(session){
         cart=await prisma.cart.findFirst({
@@ -50,15 +53,18 @@ return {
     subtotals: cart.items.reduce((total, item) => {
       const price = item.product.price ?? 0;
       return total + item.quantity * price;
-    }, 0),UserId_
+    }, 0),
   };
   
 }
 
 const createCarts=async():Promise<shoppingCart> =>{
+
+
+
     const session=await getServerSession(authOptions)
     let newCart:Cart 
-    const user=await getUser({session})
+    const user=await getUser(session?.user.name ||"",session?.user.email||"")
     if(session){
         newCart=await prisma.cart.create({
             data: {userId:user?.id },
@@ -80,18 +86,22 @@ const createCarts=async():Promise<shoppingCart> =>{
     subtotals:0
  }
 }
-export const megrgeAnonymousCartIntoUserCart=async()=>{
-    const session=await getServerSession(authOptions)
-    console.log(session)
-    const user=await getUser({session})
+
+// interface megrgeAnonymousCartIntoUserCartProb{
+//     session:Session | null
+// }
+// export const megrgeAnonymousCartIntoUserCart=async({session}:megrgeAnonymousCartIntoUserCartProb)=>{
+export const megrgeAnonymousCartIntoUserCart=async(name:string,email:string)=>{
+    console.log(name,email)
+    // const session=await getServerSession(authOptions)
+    const user=await getUser(name ||"",email||"")
     console.log(user)
     const userCart=await prisma.cart.findFirst({
-        where:{userId:"cm0s33qk8000010gnbz8dka9q"},
+        where:{userId:user?.id},
         include:{items:true}
     })
 
     const localCartId=Number(cookies().get("localCartId")?.value)
-    console.log(localCartId)
     const localCart=localCartId ?  
            await prisma.cart.findUnique({
             where:{id:localCartId},

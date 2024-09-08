@@ -17,8 +17,10 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   events:{
-    async signIn(){
-      await megrgeAnonymousCartIntoUserCart()
+    async signIn(session){
+      const name=session.user.name || ""
+      const email=session.user.email || ""
+      await megrgeAnonymousCartIntoUserCart(name ,email)
     }
   },
   // callbacks:{
