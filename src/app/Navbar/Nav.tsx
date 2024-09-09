@@ -13,7 +13,7 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
         "use server"
         const search=formData.get("serachQuery")?.toString()
         if(search){
-            redirect("/search?query?="+search)
+            redirect("/search?query="+search)
         }
     }   
 const NavBar=async()=>{

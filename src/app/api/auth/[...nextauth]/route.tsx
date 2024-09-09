@@ -7,6 +7,7 @@ import { NextAuthOptions } from "next-auth";
 import { Adapter } from "next-auth/adapters";
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
+import { redirect } from "next/navigation";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as Adapter,
@@ -21,6 +22,9 @@ export const authOptions: NextAuthOptions = {
       const name=session.user.name || ""
       const email=session.user.email || ""
       await megrgeAnonymousCartIntoUserCart(name ,email)
+    },
+    async signOut(){
+      redirect("/")
     }
   },
   // callbacks:{

@@ -1,10 +1,7 @@
-import fromatPrice from "@/lib/db/formatPrice";
 import { product } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import PriceTag from "./PriceTag";
-import AddToCartButton from "../products/[productsId]/AddToCartButton";
-import incrementProductQuantity from "../products/[productsId]/actions";
 
 interface ProductCardProbs {
   product: product;
