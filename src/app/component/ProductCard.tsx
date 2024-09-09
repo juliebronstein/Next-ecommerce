@@ -37,7 +37,7 @@ const ProductCard = ({ product }: ProductCardProbs) => {
         <p>{product.descriptions}</p>
         <div className="card-actions justify-between place-items-baseline">
           <PriceTag className="card-title" price={product?.price || 0} />
-          <AddToCartButton productId={product.idproduct} incrementProductQuantity={incrementProductQuantity} />
+          {/* <AddToCartButton productId={product.idproduct} incrementProductQuantity={incrementProductQuantity} /> */}
         </div>
       </div>
     </Link>

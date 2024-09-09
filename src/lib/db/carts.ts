@@ -3,7 +3,7 @@ import prisma from "./prisma"
 import { Cart, CartItem, Prisma } from "@prisma/client"
 import { getServerSession, Session } from "next-auth"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
-import getUser from "./user"
+import getUser, { getUserbyNameEmail } from "./user"
 
 
 
@@ -23,7 +23,7 @@ export type shoppingCart= cartWithProduct &{
 export async function getCart(): Promise<shoppingCart|null> {
     const session=await getServerSession(authOptions)
     let cart:cartWithProduct | null
-    const user=await getUser(session?.user.name ||"",session?.user.email||"")
+    const user=await getUser({session})
     const UserId_=user?.id
     if(session){
         cart=await prisma.cart.findFirst({
@@ -64,7 +64,7 @@ const createCarts=async():Promise<shoppingCart> =>{
 
     const session=await getServerSession(authOptions)
     let newCart:Cart 
-    const user=await getUser(session?.user.name ||"",session?.user.email||"")
+    const user=await getUser({session})
     if(session){
         newCart=await prisma.cart.create({
             data: {userId:user?.id },
@@ -87,15 +87,8 @@ const createCarts=async():Promise<shoppingCart> =>{
  }
 }
 
-// interface megrgeAnonymousCartIntoUserCartProb{
-//     session:Session | null
-// }
-// export const megrgeAnonymousCartIntoUserCart=async({session}:megrgeAnonymousCartIntoUserCartProb)=>{
 export const megrgeAnonymousCartIntoUserCart=async(name:string,email:string)=>{
-    console.log(name,email)
-    // const session=await getServerSession(authOptions)
-    const user=await getUser(name ||"",email||"")
-    console.log(user)
+    const user=await getUserbyNameEmail(name,email)
     const userCart=await prisma.cart.findFirst({
         where:{userId:user?.id},
         include:{items:true}
@@ -107,17 +100,7 @@ export const megrgeAnonymousCartIntoUserCart=async(name:string,email:string)=>{
             where:{id:localCartId},
             include:{items:true}
         }):null
-
-
-  
-
-
-
 if(!localCart) return
-
-
-
-
     await prisma.$transaction(async (tx) =>{
         if(userCart){
         const mergedItems=mergeCartItem(userCart.items,localCart?.items)

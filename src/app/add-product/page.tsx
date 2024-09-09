@@ -10,7 +10,7 @@ export const metadata = {
   description: "We make your wallet cry",
 };
 
-const addProduct = async (formData: FormData) => {
+  const addProduct = async (formData: FormData) => {
   "use server";
   const session=await getServerSession(authOptions)
   if(!session)
@@ -22,14 +22,17 @@ const addProduct = async (formData: FormData) => {
   if (!name || !price || !imageUrl || !descriptions)
     throw Error("Missing required field");
   const data = {
-    name,
+    name,        
+    price,       
     descriptions,
-    imageUrl,
-    price,
+    imageUrl,   
    };
-  const res = await prisma.product.create({
-    data:data,
+   
+ await prisma.product.create({
+    data
   });
+
+
 
   Object.keys(data).forEach((key) => {
     formData.set(key, "");
