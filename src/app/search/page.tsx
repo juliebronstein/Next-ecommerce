@@ -10,7 +10,7 @@ interface SearchPageProps {
     searchParams: { query },
   }: SearchPageProps): Metadata {
     return {
-      title: `Search: ${query} - Flowmazon`,
+      title: `Search: ${query} - onlineShop`,
     };
   }
   
