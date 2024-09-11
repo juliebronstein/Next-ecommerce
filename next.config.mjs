@@ -6,9 +6,6 @@ const nextConfig = {
         {hostname:"https://lh3.googleusercontent.com/a"}
     ],
        unoptimized: true
-    },
-    experimental:{
-        serverActions:true
     }
   
 };
