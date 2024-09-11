@@ -4,7 +4,7 @@ import createCarts, { getCart } from "@/lib/db/carts"
 import prisma from "@/lib/db/prisma"
 import { revalidatePath } from "next/cache"
 
-const setProductQuantity=async(productId:number,quantity:number)=>{
+const setProductQuantity=async(productId:string,quantity:number)=>{
     const cart= await getCart() ?? await createCarts()
     const articleInCart=cart.items.find(item=>item.productid===productId)
     if(quantity===0){
