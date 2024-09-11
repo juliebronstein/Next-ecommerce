@@ -11,7 +11,7 @@ export const metadata={
 }
 interface CartEntityProbs {
     cartItem:cartItemWithProduct,   
-    setProductQuantity:(productId:number,quantity:number)=>Promise<void>
+    setProductQuantity:(productId:string,quantity:number)=>Promise<void>
 }
 
 const CartEntity=({cartItem:{product,quantity}}:CartEntityProbs)=>{

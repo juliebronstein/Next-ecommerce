@@ -28,12 +28,10 @@ export const metadata = {
     descriptions,
     imageUrl,   
    };
-    for(let i=0;i<=50;i++){
  await prisma.product.create({
     data
   });
-    }
-
+    
 
   Object.keys(data).forEach((key) => {
     formData.set(key, "");

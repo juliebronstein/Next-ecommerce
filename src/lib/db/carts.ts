@@ -31,7 +31,7 @@ export async function getCart(): Promise<shoppingCart|null> {
             include:{items:{include:{product:true}}}
         })
     }else{
-        const localCartId=Number(cookies().get("localCartId")?.value)
+        const localCartId=cookies().get("localCartId")?.value
         cart=localCartId ?  
            await prisma.cart.findUnique({where:{id:localCartId},
                include:{items:{include:{product:true}}} })
@@ -94,7 +94,7 @@ export const megrgeAnonymousCartIntoUserCart=async(name:string,email:string)=>{
         include:{items:true}
     })
 
-    const localCartId=Number(cookies().get("localCartId")?.value)
+    const localCartId=cookies().get("localCartId")?.value
     const localCart=localCartId ?  
            await prisma.cart.findUnique({
             where:{id:localCartId},
