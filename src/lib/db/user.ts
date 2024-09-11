@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client"
 import prisma from "./prisma"
 import { getServerSession, Session } from "next-auth"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+// import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 
 
 
