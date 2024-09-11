@@ -3,8 +3,8 @@ import { useState, useTransition } from "react";
 import { SlBasket } from "react-icons/sl";
 
 interface AddToCartButtonProbs{
-    productId:number,
-    incrementProductQuantity:(productId:number)=>Promise<void>
+    productId:string,
+    incrementProductQuantity:(productId:string)=>Promise<void>
 }
 const AddToCartButton=({productId,incrementProductQuantity}:AddToCartButtonProbs)=>{
     const [isPending,startTransition]=useTransition()

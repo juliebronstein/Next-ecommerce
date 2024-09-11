@@ -19,6 +19,7 @@ export const metadata = {
   const descriptions = formData.get("description")?.toString();
   const imageUrl = formData.get("imageUrl")?.toString();
   const price = Number(formData.get("price")?.toString() || 0);
+ 
   if (!name || !price || !imageUrl || !descriptions)
     throw Error("Missing required field");
   const data = {
@@ -27,11 +28,11 @@ export const metadata = {
     descriptions,
     imageUrl,   
    };
-   
+    for(let i=0;i<=50;i++){
  await prisma.product.create({
     data
   });
-
+    }
 
 
   Object.keys(data).forEach((key) => {

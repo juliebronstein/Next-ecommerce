@@ -7,10 +7,9 @@ import { revalidatePath } from "next/cache"
 
 
 
-const incrementProductQuantity=async(productId:number)=>{
-    const id_=Number(productId)||0
+const incrementProductQuantity=async(productId:string)=>{
     const cart= await getCart() ?? await createCarts()
-    const articleInCart=cart.items.find(item=>item.productid===id_)
+    const articleInCart=cart.items.find(item=>item.productid===productId || 0)
     if(articleInCart){
         await prisma.cartItem.update({
             where:{id:articleInCart.id},

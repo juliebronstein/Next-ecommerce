@@ -12,8 +12,7 @@ interface ProductPageProbs {
   };
 }
 const getProduct = async (productsId: string) => {
-  const id = Number(productsId);
-  const product = await prisma.product.findUnique({ where: { idproduct: id } });
+  const product = await prisma.product.findUnique({ where: { idproduct: productsId } });
   if (!product) notFound();
   return product;
 };
